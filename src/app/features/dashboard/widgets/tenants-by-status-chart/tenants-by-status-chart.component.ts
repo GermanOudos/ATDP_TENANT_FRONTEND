@@ -1,0 +1,30 @@
+import { Component, input, computed } from '@angular/core';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
+@Component({
+  selector: 'app-tenants-by-status-chart',
+  standalone: true,
+  imports: [NgApexchartsModule],
+  template: `
+    <div class="rounded-xl border border-slate-200 bg-white p-5">
+      <h3 class="mb-4 text-sm font-semibold text-slate-700">Tenants por estado</h3>
+      @if (hasData()) {
+        <apx-chart
+          [series]="series()"
+          [chart]="{ type: 'donut', height: 220, animations: { enabled: false } }"
+          [labels]="['Activos', 'Inactivos', 'Eliminados']"
+          [colors]="['#22c55e', '#f59e0b', '#ef4444']"
+          [legend]="{ position: 'bottom' }"
+          [plotOptions]="{ pie: { donut: { size: '65%' } } }"
+          [dataLabels]="{ enabled: false }"
+        />
+      } @else {
+        <div class="flex h-[220px] items-center justify-center text-sm text-slate-400">Sin datos</div>
+      }
+    </div>
+  `,
+})
+export class TenantsByStatusChartComponent {
+  readonly series = input<number[]>([0, 0, 0]);
+  readonly hasData = computed(() => this.series().some((v) => v > 0));
+}

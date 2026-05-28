@@ -1,0 +1,31 @@
+@use "sass:meta";
+@include meta.load-css("tailwindcss");
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--tui-font-text, 'Inter', ui-sans-serif, system-ui, sans-serif);
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Taiga UI tabs — indicador azul y mayor espaciado */
+[tuiTab] {
+  padding: 14px 16px !important;
+  font-size: 0.875rem !important;
+}
+
+[tuiTab]._active::after,
+[tuiTab][data-state='active']::after {
+  background: #3b82f6 !important;
+}
+
+tui-tabs {
+  --t-color: #3b82f6;
+  --tui-background-accent-1: #3b82f6;
+}

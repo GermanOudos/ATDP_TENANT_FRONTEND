@@ -1,12 +1,15 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TuiRoot } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  imports: [RouterOutlet, TuiRoot],
+  template: `
+    <tui-root>
+      <router-outlet />
+    </tui-root>
+  `,
 })
-export class App {
-  protected readonly title = signal('ATDP_TENANT_FRONTEND');
-}
+export class App {}
