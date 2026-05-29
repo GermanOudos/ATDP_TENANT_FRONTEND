@@ -25,6 +25,10 @@ export class UsersService extends BaseApiService {
     return this.put<UserDto>(`${this.BASE}/${id}`, dto);
   }
 
+  toggleActive(id: number, isActive: boolean): Observable<UserDto> {
+    return this.put<UserDto>(`${this.BASE}/${id}`, { isActive });
+  }
+
   remove(id: number): Observable<void> {
     return super.delete<void>(`${this.BASE}/${id}`);
   }

@@ -2,10 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { DashboardStore } from './dashboard.store';
 import { StatCardComponent } from './widgets/stat-card/stat-card.component';
-import { TenantsByStatusChartComponent } from './widgets/tenants-by-status-chart/tenants-by-status-chart.component';
-import { TenantsGrowthChartComponent } from './widgets/tenants-growth-chart/tenants-growth-chart.component';
-import { TsaConfigStatusChartComponent } from './widgets/tsa-config-status-chart/tsa-config-status-chart.component';
-import { RecentTenantsListComponent } from './widgets/recent-tenants-list/recent-tenants-list.component';
+// import { TenantsByStatusChartComponent } from './widgets/tenants-by-status-chart/tenants-by-status-chart.component';
+// import { TenantsGrowthChartComponent } from './widgets/tenants-growth-chart/tenants-growth-chart.component';
+// import { TsaConfigStatusChartComponent } from './widgets/tsa-config-status-chart/tsa-config-status-chart.component';
+// import { RecentTenantsListComponent } from './widgets/recent-tenants-list/recent-tenants-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +13,10 @@ import { RecentTenantsListComponent } from './widgets/recent-tenants-list/recent
   imports: [
     LucideAngularModule,
     StatCardComponent,
-    TenantsByStatusChartComponent,
-    TenantsGrowthChartComponent,
-    TsaConfigStatusChartComponent,
-    RecentTenantsListComponent,
+    // TenantsByStatusChartComponent,
+    // TenantsGrowthChartComponent,
+    // TsaConfigStatusChartComponent,
+    // RecentTenantsListComponent,
   ],
   template: `
     <div class="space-y-6">
@@ -54,19 +54,19 @@ import { RecentTenantsListComponent } from './widgets/recent-tenants-list/recent
           <app-stat-card title="Secreto activo" [value]="store.tenantsWithActiveSecret()" subtitle="tenants con secreto de autenticación vigente" icon="shield-check" tone="blue" />
         </div>
 
-        <!-- Charts Row -->
-        <div class="grid grid-cols-2 gap-4">
+        <!-- Charts Row — pendiente de activar -->
+        <!-- <div class="grid grid-cols-2 gap-4">
           <app-tenants-by-status-chart [series]="store.tenantsByStatus()" />
           <app-tenants-growth-chart [categories]="growthCategories()" [data]="growthData()" />
-        </div>
+        </div> -->
 
-        <!-- Bottom Row -->
-        <div class="grid grid-cols-3 gap-4">
+        <!-- Bottom Row — pendiente de activar -->
+        <!-- <div class="grid grid-cols-3 gap-4">
           <div class="col-span-2">
             <app-tsa-config-status-chart [series]="tsaSeries()" />
           </div>
           <app-recent-tenants-list [tenants]="store.recentTenants()" />
-        </div>
+        </div> -->
       }
     </div>
   `,
@@ -78,29 +78,22 @@ export class DashboardComponent implements OnInit {
     this.store.loadData(undefined);
   }
 
-  growthData() {
-    return this.store.tenantsByMonth().map((m) => m.count);
-  }
+  // growthData() {
+  //   return this.store.tenantsByMonth().map((m) => m.count);
+  // }
 
-  growthCategories() {
-    return this.store.tenantsByMonth().map((m) => {
-      const [year, month] = m.month.split('-');
-      return new Date(+year, +month - 1).toLocaleDateString('es-CO', { month: 'short', year: '2-digit' });
-    });
-  }
+  // growthCategories() {
+  //   return this.store.tenantsByMonth().map((m) => {
+  //     const [year, month] = m.month.split('-');
+  //     return new Date(+year, +month - 1).toLocaleDateString('es-CO', { month: 'short', year: '2-digit' });
+  //   });
+  // }
 
-  tsaSeries() {
-    const total = this.store.totalTenants();
-    return [
-      {
-        name: 'Configurado',
-        data: [this.store.tenantsWithTsaPrincipal(), this.store.tenantsWithTsaContingency()],
-      },
-      {
-        name: 'Sin configurar',
-        data: [total - this.store.tenantsWithTsaPrincipal(), total - this.store.tenantsWithTsaContingency()],
-      },
-    ];
-  }
-
+  // tsaSeries() {
+  //   const total = this.store.totalTenants();
+  //   return [
+  //     { name: 'Configurado', data: [this.store.tenantsWithTsaPrincipal(), this.store.tenantsWithTsaContingency()] },
+  //     { name: 'Sin configurar', data: [total - this.store.tenantsWithTsaPrincipal(), total - this.store.tenantsWithTsaContingency()] },
+  //   ];
+  // }
 }

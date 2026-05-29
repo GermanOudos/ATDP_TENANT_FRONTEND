@@ -108,6 +108,26 @@ export const UsersStore = signalStore(
         )
       )
     ),
+    toggleActive: rxMethod<{ id: number; isActive: boolean }>(
+      pipe(
+        tap(() => patchState(store, { isSubmitting: true })),
+        switchMap(({ id, isActive }) =>
+          service.toggleActive(id, isActive).pipe(
+            tapResponse({
+              next: (user) => {
+                toast.success(isActive ? 'Usuario habilitado' : 'Usuario inhabilitado');
+                patchState(store, {
+                  items: store.items().map((u) => (u.id === user.id ? user : u)),
+                  isSubmitting: false,
+                });
+              },
+              error: () => patchState(store, { isSubmitting: false }),
+            })
+          )
+        )
+      )
+    ),
+
     deleteUser: rxMethod<number>(
       pipe(
         tap(() => patchState(store, { isSubmitting: true })),
@@ -126,6 +146,9 @@ export const UsersStore = signalStore(
     ),
     setPage(page: number): void {
       patchState(store, (s) => ({ pagination: { ...s.pagination, page } }));
+    },
+    setPageSize(pageSize: number): void {
+      patchState(store, (s) => ({ pagination: { ...s.pagination, pageSize, page: 1 } }));
     },
     setSearch(searchTerm: string): void {
       patchState(store, (s) => ({ pagination: { ...s.pagination, searchTerm, page: 1 } }));

@@ -35,6 +35,7 @@ export const createUserSchema = z.object({
     .min(8, 'Mínimo 8 caracteres')
     .regex(PASSWORD_PATTERN, 'Debe tener mayúscula, minúscula y número'),
   isActive: z.boolean().default(true),
+  createdBy: z.string().optional(),
 });
 
 export const updateUserSchema = z.object({

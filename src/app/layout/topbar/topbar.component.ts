@@ -15,7 +15,7 @@ import { AuthStore } from '@core/auth/auth.store';
         <div class="flex items-center gap-3">
           <div class="text-right">
             <p class="text-sm font-medium text-slate-900">{{ authStore.displayName() }}</p>
-            <p class="text-xs text-slate-500">{{ authStore.currentUser()?.roleName }}</p>
+            <p class="text-xs text-slate-500">Administrador</p>
           </div>
           <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center">
             <lucide-icon name="user" class="w-5 h-5 text-blue-600" />
